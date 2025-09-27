@@ -2,6 +2,32 @@ import React, { useState } from "react";
 import "./Formulario.css";
 import Card from "../Card/Card";
 
+const proyeccionesSemanales = {
+  Aries:
+    "Semana de energía y comienzos. Es un buen momento para iniciar proyectos. Mantén la calma ante los desafíos.",
+  Tauro:
+    "Enfócate en la estabilidad financiera y el bienestar personal. Podrías recibir noticias agradables sobre dinero.",
+  Géminis:
+    "Comunicación clave esta semana. Expresa tus ideas claramente. Podrías tener un encuentro social muy estimulante.",
+  Cáncer:
+    "Prioriza tu hogar y familia. Es un buen momento para el autocuidado y para resolver asuntos domésticos pendientes.",
+  Leo: "Tu creatividad estará en su punto máximo. Brilla en tu trabajo y en tus actividades sociales. Evita ser demasiado orgulloso.",
+  Virgo:
+    "Semana para organizar y planificar. Presta atención a los detalles en tu trabajo. Cuida tu alimentación y bienestar físico.",
+  Libra:
+    "Busca el equilibrio en tus relaciones. Un socio o amigo podría ofrecerte una perspectiva valiosa. Momento de decisiones justas.",
+  Escorpio:
+    "Transformación y profundidad marcan esta semana. Explora tus emociones. Podrías descubrir información importante.",
+  Sagitario:
+    "Aventura y aprendizaje están en el horizonte. Planifica un viaje o estudia algo nuevo. Mantén el optimismo.",
+  Capricornio:
+    "Enfócate en tus metas profesionales. El esfuerzo constante te dará resultados. No te olvides de tomar un descanso.",
+  Acuario:
+    "Las conexiones sociales y las ideas innovadoras son importantes. Un amigo te dará un consejo útil. Abre tu mente a lo inesperado.",
+  Piscis:
+    "Escucha tu intuición y conecta con tu lado artístico. Es un buen momento para la meditación o el descanso. Evita los excesos.",
+};
+
 const Formulario = () => {
   const [nombre, setNombre] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
@@ -85,7 +111,11 @@ const Formulario = () => {
     }
 
     const signo = calcularSigno(fechaNacimiento);
-    setResultado({ nombre: nombre.trim(), signo });
+    // Obtener la proyección semanal
+    const proyeccion =
+      proyeccionesSemanales[signo] || "No hay proyección disponible.";
+
+    setResultado({ nombre: nombre.trim(), signo, proyeccion }); // <- Se agrega 'proyeccion'
   };
 
   return (
@@ -115,7 +145,14 @@ const Formulario = () => {
       </form>
 
       {error && <div className="error">{error}</div>}
-      {resultado && <Card nombre={resultado.nombre} signo={resultado.signo} />}
+      {/* Se pasa la prop 'proyeccion' al componente Card */}
+      {resultado && (
+        <Card
+          nombre={resultado.nombre}
+          signo={resultado.signo}
+          proyeccion={resultado.proyeccion}
+        />
+      )}
     </div>
   );
 };

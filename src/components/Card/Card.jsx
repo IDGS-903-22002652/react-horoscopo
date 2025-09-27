@@ -28,7 +28,7 @@ const imagenes = {
   Piscis: piscis,
 };
 
-const Card = ({ nombre, signo }) => {
+const Card = ({ nombre, signo, proyeccion }) => {
   if (!nombre || !signo) return null;
 
   return (
@@ -39,6 +39,10 @@ const Card = ({ nombre, signo }) => {
       </p>
       <p>
         Tu signo zodiacal es: <span className="bold">{signo}</span>
+      </p>
+      <p className="proyeccion-text">
+        Tu proyección de la semana es:{" "}
+        <span className="bold">{proyeccion}</span>
       </p>
       {imagenes[signo] && (
         <img src={imagenes[signo]} alt={signo} className="signo-img" />
